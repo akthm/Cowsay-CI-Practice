@@ -17,6 +17,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with: 
+          sparse-checkout: | 
+            src/package.json
+            src/package-lock.json
+            src
+          sparse-checkout-cone: false
+          fetch-depth: 1
+          
+    
 
       - name: Use Node 
         uses: actions/setup-node@v4
