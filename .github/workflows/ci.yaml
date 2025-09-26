@@ -11,6 +11,9 @@ permissions:
 jobs:
   test: 
     runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: src
     strategy: 
       matrix:
         node-version: [18, 20]
@@ -22,9 +25,9 @@ jobs:
             src/package.json
             src/package-lock.json
             src
-          sparse-checkout-cone: false
+          sparse-checkout-cone-mode: false
           fetch-depth: 1
-          
+
     
 
       - name: Use Node 
@@ -32,6 +35,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm 
+          cache-dependency-path: src/package-lock.json
+
       - name: Install 
         run: npm ci 
       
